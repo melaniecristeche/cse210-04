@@ -1,14 +1,14 @@
 from game.casting.actor import Actor
 
 
-class Artifact(Actor):
+class Gem(Actor):
     """
-    An item of cultural or historical interest. 
+    a pretty shiny gem, you better collect lots of these
     
-    The responsibility of an Artifact is to provide a message about itself.
+    The responsibility of the gem is to be the treasure to collect.
 
     Attributes:
-        _message (string): A short description about the artifact.
+        
     """
     def __init__(self):
         super().__init__()
