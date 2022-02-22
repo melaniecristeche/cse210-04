@@ -12,20 +12,20 @@ class Gem(Actor):
     """
     def __init__(self):
         super().__init__()
-        self._message = ""
+        self._point=10
         
-    def get_message(self):
-        """Gets the artifact's message.
+    def get_point(self):
+        """Gets the gems current score.
         
         Returns:
-            string: The message.
+            string: current value
         """
-        return self._message
+        return self._points
     
-    def set_message(self, message):
-        """Updates the message to the given one.
+    def set_point(self, points):
+        """Updates the point value to the given one
         
         Args:
-            message (string): The given message.
+            penalty (int) the point value
         """
-        self._message = message
+        self._point = points

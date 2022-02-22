@@ -57,12 +57,15 @@ class Director:
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
         for rock in rocks:
+            rock.move_next(max_x,max_y)
             if robot.get_position().equals(rock.get_position()):
                 #we need to change the score here
+                score-=1
                 
         for gem in gems:
             if robot.get_position().equals(gem.get_position()):
                 #we need to change the score here
+                score+=1
                 
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
