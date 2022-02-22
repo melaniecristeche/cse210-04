@@ -17,6 +17,8 @@ class Director:
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
+        self.score = 50
+              
         
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -52,20 +54,27 @@ class Director:
         rocks = cast.get_actors("rocks")
         gems = cast.get_actors("gems")
 
-        banner.set_text("")
+        #banner.set_text("score:")
+        temp = "Score: "
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
+               
         for rock in rocks:
-            rock.move_next(max_x,max_y)
+            rock.move_next(max_x, max_y)            
             if robot.get_position().equals(rock.get_position()):
                 #we need to change the score here
-                score-=1
-                
+                self.score -= 1
+                message = str(self.score)
+                banner.set_text("Score: "+message)                
+       
         for gem in gems:
+            gem.move_next(max_x,max_y)
             if robot.get_position().equals(gem.get_position()):
                 #we need to change the score here
-                score+=1
+                self.score +=1
+                message = str(self.score)
+                banner.set_text("Score: "+message) 
                 
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
