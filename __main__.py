@@ -2,7 +2,8 @@ import os
 import random
 
 from game.casting.actor import Actor
-from game.casting.rock import Artifact
+from game.casting.gem import Gem
+from game.casting.rock import Rock
 from game.casting.cast import Cast
 
 from game.directing.director import Director
@@ -24,7 +25,8 @@ ROWS = 40
 CAPTION = "Robot Finds Kitten"
 DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = 40
+Number_Of_Rocks = 20
+Number_of_Gems = 25
 
 
 def main():
@@ -44,6 +46,7 @@ def main():
     x = int(MAX_X / 2)
     y = int(MAX_Y / 2)
     position = Point(x, y)
+    
 
     robot = Actor()
     robot.set_text("#")
@@ -51,33 +54,50 @@ def main():
     robot.set_color(WHITE)
     robot.set_position(position)
     cast.add_actor("robots", robot)
-    
-    # create the artifacts
-    with open(DATA_PATH) as file:
-        data = file.read()
-        messages = data.splitlines()
 
-    for n in range(DEFAULT_ARTIFACTS):
-        text = chr(random.randint(33, 126))
-        message = messages[n]
-
+    for i in range(Number_Of_Rocks):
+        text = chr(56)
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
+        speed=Point(0,5)
+    
 
-        r = random.randint(0, 255)
-        g = random.randint(0, 255)
+        r = random.randint(25, 50)
+        g = random.randint(25, 50)
         b = random.randint(0, 255)
         color = Color(r, g, b)
         
-        artifact = Artifact()
-        artifact.set_text(text)
-        artifact.set_font_size(FONT_SIZE)
-        artifact.set_color(color)
-        artifact.set_position(position)
-        artifact.set_message(message)
-        cast.add_actor("artifacts", artifact)
+        rock = Rock()
+        rock.set_text(text)
+        rock.set_font_size(FONT_SIZE)
+        rock.set_color(color)
+        rock.set_position(position)
+        rock.set_velocity(speed)
+        cast.add_actor("rocks", rock)
+        
+    for i in range(Number_of_Gems):
+        text = chr(36)
+        x = random.randint(1, COLS - 1)
+        y = random.randint(1, ROWS - 1)
+        position = Point(x, y)
+        position = position.scale(CELL_SIZE)
+        speed=Point(0,4)
+    
+
+        r = 255
+        g = 215
+        b = 0
+        color = Color(r, g, b)
+        
+        gem = Gem()
+        gem.set_text(text)
+        gem.set_font_size(FONT_SIZE)
+        gem.set_color(color)
+        gem.set_position(position)
+        gem.set_velocity(speed)
+        cast.add_actor("rocks", gem)
     
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
