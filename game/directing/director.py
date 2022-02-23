@@ -1,3 +1,5 @@
+
+
 class Director:
     """A person who directs the game. 
     
@@ -17,9 +19,9 @@ class Director:
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
-        self.score = 50
+        self.score = 20
+        self.limit_to_win = 30
               
-        
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
 
@@ -55,27 +57,39 @@ class Director:
         gems = cast.get_actors("gems")
 
         #banner.set_text("score:")
-        temp = "Score: "
+        message_game_over = "Game Over - You Lost!"
+        message_winner = "Congrat - You Won!"
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-               
+       
+
         for rock in rocks:
             rock.move_next(max_x, max_y)            
             if robot.get_position().equals(rock.get_position()):
-                #we need to change the score here
-                self.score -= 1
-                message = str(self.score)
-                banner.set_text("Score: "+message)                
-       
+                
+                if self.score<=0:
+                    banner.set_text("Score: "+message_game_over)
+                elif self.score >= int(self.limit_to_win):
+                    banner.set_text("Score: "+message_winner)
+                else:
+                    self.score -= 1
+                    message = str(self.score)
+                    banner.set_text("Score: "+message)
+            
         for gem in gems:
             gem.move_next(max_x,max_y)
             if robot.get_position().equals(gem.get_position()):
-                #we need to change the score here
-                self.score +=1
-                message = str(self.score)
-                banner.set_text("Score: "+message) 
                 
+                if self.score<=0:
+                    banner.set_text("Score: "+message_game_over)
+                elif self.score >= int(self.limit_to_win):
+                    banner.set_text("Score: "+message_winner)
+                else:
+                    self.score +=2
+                    message = str(self.score)
+                    banner.set_text("Score: "+message)
+                    
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
         
