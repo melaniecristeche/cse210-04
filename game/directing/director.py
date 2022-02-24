@@ -1,3 +1,6 @@
+import random
+from game.shared.point import Point
+
 
 
 class Director:
@@ -20,6 +23,7 @@ class Director:
         self._keyboard_service = keyboard_service
         self._video_service = video_service
         self.score = 0
+        self.respawn=Point(0,0)
 
               
     def start_game(self, cast):
@@ -68,19 +72,32 @@ class Director:
             rock.move_next(max_x, max_y)            
             if robot.get_position().equals(rock.get_position()):
                 
+                x = random.randint(1, 60 - 2)
+                y = random.randint(1, 40 - 2)
+                position = Point(x, y)
+                position = position.scale(15)
+                rock.set_position(position)
+                
                 if self.score==0:
                     banner.set_text("Score: "+str(self.score))
                 else:
                     self.score -= 1
                     message = str(self.score)
                     banner.set_text("Score: "+message)
+                
             
         for gem in gems:
             gem.move_next(max_x,max_y)
             if robot.get_position().equals(gem.get_position()):
-                    self.score += 1
-                    message = str(self.score)
-                    banner.set_text("Score: "+message)
+                x = random.randint(1, 60 - 2)
+                y = random.randint(1, 40 - 2)
+                position = Point(x, y)
+                position = position.scale(15)
+                gem.set_position(position)
+
+                self.score += 1
+                message = str(self.score)
+                banner.set_text("Score: "+message)
                     
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
