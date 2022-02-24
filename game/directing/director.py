@@ -19,8 +19,8 @@ class Director:
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
-        self.score = 20
-        self.limit_to_win = 30
+        self.score = 0
+
               
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -68,10 +68,8 @@ class Director:
             rock.move_next(max_x, max_y)            
             if robot.get_position().equals(rock.get_position()):
                 
-                if self.score<=0:
-                    banner.set_text("Score: "+message_game_over)
-                elif self.score >= int(self.limit_to_win):
-                    banner.set_text("Score: "+message_winner)
+                if self.score==0:
+                    banner.set_text("Score: "+str(self.score))
                 else:
                     self.score -= 1
                     message = str(self.score)
@@ -80,13 +78,7 @@ class Director:
         for gem in gems:
             gem.move_next(max_x,max_y)
             if robot.get_position().equals(gem.get_position()):
-                
-                if self.score<=0:
-                    banner.set_text("Score: "+message_game_over)
-                elif self.score >= int(self.limit_to_win):
-                    banner.set_text("Score: "+message_winner)
-                else:
-                    self.score +=2
+                    self.score += 1
                     message = str(self.score)
                     banner.set_text("Score: "+message)
                     
