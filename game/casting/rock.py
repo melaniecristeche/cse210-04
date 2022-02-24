@@ -12,20 +12,3 @@ class Rock(Actor):
     """
     def __init__(self):
         super().__init__()
-        self._point=-10
-        
-    def get_point(self):
-        """Gets the rocks current penalty score.
-        
-        Returns:
-            string: current penalty
-        """
-        return self._points
-    
-    def set_point(self, penalty):
-        """Updates the penalty value to the given one
-        
-        Args:
-            penalty (int) the point value
-        """
-        self._point = penalty

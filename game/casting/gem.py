@@ -12,20 +12,3 @@ class Gem(Actor):
     """
     def __init__(self):
         super().__init__()
-        self._point=10
-        
-    def get_point(self):
-        """Gets the gems current score.
-        
-        Returns:
-            string: current value
-        """
-        return self._points
-    
-    def set_point(self, points):
-        """Updates the point value to the given one
-        
-        Args:
-            penalty (int) the point value
-        """
-        self._point = points
