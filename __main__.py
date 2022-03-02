@@ -1,6 +1,5 @@
 import os
 import random
-from typing_extensions import Self
 
 from game.casting.actor import Actor
 from game.casting.gem import Gem
@@ -82,9 +81,9 @@ def main():
         cast.add_actor("rocks", rock)
         
         # next level score
-        score = Director._do_updates()
-
-        if score >= 10:
+        score = 10
+        level = Director.next_level(score)
+        if level == True:
             # next level properties
             new_speed = Point(0,3)
             new_color = PURPLE
@@ -125,8 +124,19 @@ def main():
         cast.add_actor("gems", gem)
 
         # next level properties
-        new_speed = Point(0,6)
-        new_color = PINK
+        score = 10
+        level = Director.next_level(score)
+        if level == True:
+            new_speed = Point(0,6)
+            new_color = PINK
+
+            gem = Gem()
+            gem.set_text(text)
+            gem.set_font_size(FONT_SIZE)
+            gem.set_color(new_color)
+            gem.set_position(position)
+            gem.set_velocity(new_speed)
+            cast.add_actor("gems", gem)
     
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
