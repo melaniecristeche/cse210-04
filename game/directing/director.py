@@ -25,7 +25,6 @@ class Director:
         self.score = 0
         self.respawn=Point(0,0)
 
-              
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
 
@@ -61,8 +60,6 @@ class Director:
         gems = cast.get_actors("gems")
 
         #banner.set_text("score:")
-        message_game_over = "Game Over - You Lost!"
-        message_winner = "Congrat - You Won!"
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
@@ -109,3 +106,47 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
+    
+    def next_level(self, cast, score):
+
+        banner = cast.get_first_actor("banners")
+        robot = cast.get_first_actor("robots")
+        rocks = cast.get_actors("rocks")
+        gems = cast.get_actors("gems")
+
+        #banner.set_text("score:")
+        max_x = self._video_service.get_width()
+        max_y = self._video_service.get_height()
+        robot.move_next(max_x, max_y)
+
+        for rock in rocks:
+            rock.move_next(max_x, max_y)            
+            if robot.get_position().equals(rock.get_position()):
+                
+                x = random.randint(1, 60 - 2)
+                y = random.randint(1, 40 - 2)
+                position = Point(x, y)
+                position = position.scale(15)
+                rock.set_position(position)
+                
+                if self.score==0:
+                    banner.set_text("Score: "+str(self.score))
+        
+                else:
+                    self.score -= 1
+                    message = str(self.score)
+                    banner.set_text("Score: "+message)
+                
+            
+        for gem in gems:
+            gem.move_next(max_x,max_y)
+            if robot.get_position().equals(gem.get_position()):
+                x = random.randint(1, 60 - 2)
+                y = random.randint(1, 40 - 2)
+                position = Point(x, y)
+                position = position.scale(15)
+                gem.set_position(position)
+
+                self.score += 1
+                message = str(self.score)
+                banner.set_text("Score: "+message)
