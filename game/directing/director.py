@@ -1,5 +1,7 @@
 import random
+from game.casting.actor import Actor
 from game.shared.point import Point
+from game.shared.color import Color
 
 
 
@@ -25,7 +27,6 @@ class Director:
         self.score = 0
         self.respawn=Point(0,0)
 
-              
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
 
@@ -61,12 +62,12 @@ class Director:
         gems = cast.get_actors("gems")
 
         #banner.set_text("score:")
-        message_game_over = "Game Over - You Lost!"
-        message_winner = "Congrat - You Won!"
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-       
+
+        if self.score >=10:
+            banner.set_color(Color(254,252,164))
 
         for rock in rocks:
             rock.move_next(max_x, max_y)            
@@ -78,14 +79,18 @@ class Director:
                 position = position.scale(15)
                 rock.set_position(position)
                 
-                if self.score==0:
-                    banner.set_text("Score: "+str(self.score))
+                if self.score == 0:
+                    banner.set_text("Score: "+ str(self.score))
+               
                 else:
                     self.score -= 1
                     message = str(self.score)
-                    banner.set_text("Score: "+message)
-                
-            
+                    banner.set_text("Score: "+ message)
+
+            if self.score >= 10:
+                rock.set_velocity(Point(0,3))
+                rock.set_color(Color(128,0,128))
+
         for gem in gems:
             gem.move_next(max_x,max_y)
             if robot.get_position().equals(gem.get_position()):
@@ -97,8 +102,13 @@ class Director:
 
                 self.score += 1
                 message = str(self.score)
-                banner.set_text("Score: "+message)
-                    
+                banner.set_text("Score: "+ message)
+
+            if self.score >= 10:
+                gem.set_velocity(Point(0,6))
+                gem.set_color(Color(255,192,203))
+
+                
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
         
@@ -109,3 +119,5 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
+
+    
