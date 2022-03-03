@@ -27,6 +27,7 @@ DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
 PINK = Color(255,192,203)
 PURPLE = Color(128,0,128)
+VIOLET = Color(87,35,100)
 Number_Of_Rocks = 20
 Number_of_Gems = 25
 
@@ -79,25 +80,7 @@ def main():
         rock.set_position(position)
         rock.set_velocity(speed)
         cast.add_actor("rocks", rock)
-        
-        # next level score
-        score = 10
-        level = Director.next_level(score)
-        if level == True:
-            # next level properties
-            new_speed = Point(0,3)
-            new_color = PURPLE
-            
-            rock = Rock()
-            rock.set_text(text)
-            rock.set_font_size(FONT_SIZE)
-            rock.set_color(new_color)
-            rock.set_position(position)
-            rock.set_velocity(new_speed)
-            cast.add_actor("rocks", rock)
-
-
-        
+       
     for i in range(Number_of_Gems):
         # text = chr(36)
         #text = "*"
@@ -123,21 +106,6 @@ def main():
         gem.set_velocity(speed)
         cast.add_actor("gems", gem)
 
-        # next level properties
-        score = 10
-        level = Director.next_level(score)
-        if level == True:
-            new_speed = Point(0,6)
-            new_color = PINK
-
-            gem = Gem()
-            gem.set_text(text)
-            gem.set_font_size(FONT_SIZE)
-            gem.set_color(new_color)
-            gem.set_position(position)
-            gem.set_velocity(new_speed)
-            cast.add_actor("gems", gem)
-    
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
