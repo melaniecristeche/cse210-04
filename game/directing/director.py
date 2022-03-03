@@ -88,8 +88,10 @@ class Director:
                     banner.set_text("Score: "+ message)
 
             if self.score >= 10:
-                rock.set_velocity(Point(0,3))
+                rock.set_velocity(Point(0,2))
                 rock.set_color(Color(128,0,128))
+                rock.set_text("0")
+        
 
         for gem in gems:
             gem.move_next(max_x,max_y)
@@ -105,8 +107,10 @@ class Director:
                 banner.set_text("Score: "+ message)
 
             if self.score >= 10:
-                gem.set_velocity(Point(0,6))
+                gem.set_velocity(Point(0,3))
                 gem.set_color(Color(255,192,203))
+                gem.set_text("°")
+            
 
                 
     def _do_outputs(self, cast):

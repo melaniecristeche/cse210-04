@@ -66,7 +66,7 @@ def main():
         y = random.randint(1, ROWS - 2)
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
-        speed=Point(0,5)
+        speed=Point(0,3)
     
         r = random.randint(0, 0)
         g = random.randint(1, 255)
@@ -89,7 +89,7 @@ def main():
         y = random.randint(1, ROWS - 2)
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
-        speed=Point(0,5)
+        speed=Point(0,3)
     
 
         r = random.randint(200, 255)
