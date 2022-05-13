@@ -66,9 +66,6 @@ class Director:
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
 
-        if self.score >=10:
-            banner.set_color(Color(254,252,164))
-
         for rock in rocks:
             rock.move_next(max_x, max_y)            
             if robot.get_position().equals(rock.get_position()):
@@ -88,10 +85,14 @@ class Director:
                     banner.set_text("Score: "+ message)
 
             if self.score >= 10:
-                rock.set_velocity(Point(0,2))
                 rock.set_color(Color(128,0,128))
                 rock.set_text("0")
-        
+            if self.score >= 20:
+                rock.set_color(Color(243, 232, 0))
+                rock.set_text("%")
+            if self.score >= 30:
+                rock.set_color(Color(150, 211, 253))
+                rock.set_text("&")
 
         for gem in gems:
             gem.move_next(max_x,max_y)
@@ -107,9 +108,14 @@ class Director:
                 banner.set_text("Score: "+ message)
 
             if self.score >= 10:
-                gem.set_velocity(Point(0,3))
                 gem.set_color(Color(255,192,203))
                 gem.set_text("°")
+            if self.score >= 20:
+                gem.set_color(Color(230, 126, 34))
+                gem.set_text("+")
+            if self.score >= 30:
+                gem.set_color(Color(0, 117, 196))
+                gem.set_text("*")
             
 
                 

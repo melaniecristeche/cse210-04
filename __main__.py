@@ -60,7 +60,7 @@ def main():
 
     for i in range(Number_Of_Rocks):
         # text = chr(219)
-        text = "@"
+        text = "$"
         #text = "()"
         x = random.randint(1, COLS - 2)
         y = random.randint(1, ROWS - 2)
@@ -84,7 +84,7 @@ def main():
     for i in range(Number_of_Gems):
         # text = chr(36)
         #text = "*"
-        text = "*"
+        text = "o"
         x = random.randint(1, COLS - 2)
         y = random.randint(1, ROWS - 2)
         position = Point(x, y)
